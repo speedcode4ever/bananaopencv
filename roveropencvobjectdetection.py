@@ -8,7 +8,7 @@ if __name__ == '__main__':
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     ser.reset_input_buffer()    
         
-banana_cascade= cv2.CascadeClassifier('banana_classifier.xml')
+banana_cascade= cv2.CascadeClassifier('leafcascadev4.xml')
 
 width,height=320,240
 camera = PiCamera()
@@ -41,11 +41,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         error_x=160-face_centre_x
         error_y=120-face_centre_y
         
-        if (error_x < 20 and error_x > -20) and (error_y < 10 and error_y > -10):
+        if (error_x < 20 and error_x > -20) and (error_y < 6 and error_y > -6):
                 print("On target")
                 ser.write(b"On target\n")
         
-        elif error_y < 10 and error_y > -10:
+        elif error_y < 6 and error_y > -6:
                 print("Stop y")
                 ser.write(b"Stop y\n")
                 
@@ -61,11 +61,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 print("move left")
                 ser.write(b"move left\n")
         
-        if error_y >= 10:
+        if error_y >= 6:
                 print("move up")
                 ser.write(b"move up\n")
         
-        if error_y <= -10:
+        if error_y <= -6:
                 print("move down")
                 ser.write(b"move down\n")
                 
